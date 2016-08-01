@@ -13,6 +13,14 @@ export default Ember.Controller.extend({
 	isDisabled: Ember.computed.not('isValid'),
 		
 	
+	emailValidation: Ember.computed('isValidEmail', function(){
+		return (this.get('isValidEmail') ? 'form-group has-success has-feedback' : 'form-group');
+	}),
+	
+	messageValidation: Ember.computed('isValidMessage', function(){
+		return (this.get('isValidMessage') ? 'form-group has-success has-feedback' : 'form-group');
+	}),
+	
 	actions: {
 	
 	}
