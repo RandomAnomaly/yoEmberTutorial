@@ -11,7 +11,7 @@ export default Ember.Controller.extend({
 	isValid: Ember.computed.and('isValidEmail','isValidMessage'),
 	
 	isDisabled: Ember.computed.not('isValid'),
-		
+	
 	
 	emailValidation: Ember.computed('isValidEmail', function(){
 		return (this.get('isValidEmail') ? 'form-group has-success has-feedback' : 'form-group');
@@ -22,7 +22,23 @@ export default Ember.Controller.extend({
 	}),
 	
 	actions: {
-	
+		saveMessage(){
+			const email = this.get('emailAddress');
+			const messageText = this.get('message');
+
+			const newMessage = this.store.createRecord('message', {
+				email: email,
+				message: messageText
+			});
+
+			newMessage.save().then((response) => {
+				this.set('responseMessage', `Thank you! We saved your message with the following id: ${response.get('id')}`);
+				this.set('emailAddress', '');
+				this.set('message', '');
+
+			});
+
+		}
 	}
 	
 	
